@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/Button';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import FAQSection from '@/components/sections/FAQSection';
 
 export default function ContactPage() {
     const handleSubmit = (e: React.FormEvent) => {
@@ -21,7 +22,7 @@ export default function ContactPage() {
             </div>
 
             <div className="container mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
                     {/* Contact Info */}
                     <div className="space-y-8">
                         <div>
@@ -97,6 +98,18 @@ export default function ContactPage() {
                             </div>
                             <Button type="submit" fullWidth size="lg">Send Message</Button>
                         </form>
+                    </div>
+                </div>
+
+                {/* FAQ */}
+                <FAQSection />
+
+                {/* Service Area Map Placeholder */}
+                <div className="mt-20">
+                    <h2 className="text-3xl font-bold text-brand-dark mb-8 text-center">Service Areas</h2>
+                    <div className="bg-gray-200 w-full h-80 rounded-2xl flex items-center justify-center text-gray-500 font-bold text-xl relative overflow-hidden">
+                        <div className="absolute inset-0 opacity-10 bg-[url('https://upload.wikimedia.org/wikipedia/commons/e/e4/Karachi_districts_map.svg')] bg-cover bg-center"></div>
+                        <span className="relative z-10">Map Loading... (Delivering to all major areas in Karachi)</span>
                     </div>
                 </div>
             </div>
