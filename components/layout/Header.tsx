@@ -45,10 +45,14 @@ export const Header = () => {
           {/* ACTIONS */}
           <div className="flex items-center gap-3">
             {/* WhatsApp – DESKTOP ONLY */}
-            <Link href="https://wa.me/923008269438" target="_blank">
+            <Link
+              href="https://wa.me/923008269438"
+              target="_blank"
+              className="hidden lg:inline-flex"
+            >
               <Button
                 size="sm"
-                className="hidden md:inline-flex rounded-full bg-[#D32F2F] hover:bg-[#b71c1c] text-white px-5 shadow-md shadow-red-200"
+                className="rounded-full bg-[#D32F2F] hover:bg-[#b71c1c] text-white px-5 shadow-md shadow-red-200"
               >
                 WhatsApp Us
               </Button>
@@ -57,9 +61,10 @@ export const Header = () => {
             {/* CART */}
             <button
               onClick={toggleCart}
-              className="relative p-2 rounded-full hover:bg-black/5"
+              className="relative p-2 rounded-full hover:bg-red-100"
             >
-              <ShoppingBag className="w-6 h-6 text-brand-dark" />
+              <ShoppingBag className="w-6 h-6 text-[#D32F2F]" />
+
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#D32F2F] text-white text-[11px] font-bold flex items-center justify-center rounded-full border-2 border-white">
                   {cartCount}

@@ -43,15 +43,18 @@ export const CartSidebar = () => {
     area: "",
     address: "",
   });
+  const [error, setError] = useState("");
 
   if (!isCartOpen) return null;
 
   const handleCheckout = () => {
     setStep("checkout");
+    setError("");
   };
 
   const handleBackToCart = () => {
     setStep("cart");
+    setError("");
   };
 
   const generateOrderId = () => {
@@ -65,14 +68,25 @@ export const CartSidebar = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
 
+    // Strict Validation
     if (
-      !formData.name ||
-      !formData.phone ||
+      !formData.name.trim() ||
+      !formData.phone.trim() ||
       !formData.area ||
-      !formData.address
+      !formData.address.trim()
     ) {
-      alert("Please fill in all details to place your order.");
+      setError("Please fill in all details to place your order.");
+      return;
+    }
+
+    // Phone Validation (03XXXXXXXXX)
+    const phoneRegex = /^03\d{9}$/;
+    if (!phoneRegex.test(formData.phone.replace(/[-\s]/g, ""))) {
+      setError(
+        "Please enter a valid Pakistani phone number (e.g., 03001234567)."
+      );
       return;
     }
 
@@ -80,27 +94,33 @@ export const CartSidebar = () => {
 
     const itemsList = items
       .map((i) => `• ${i.name} x ${i.quantity} (Rs. ${i.price * i.quantity})`)
-      .join("%0A");
+      .join("\n");
 
     const subtotal = cartTotal;
     const delivery = formData.area ? 150 : 0;
     const total = subtotal + delivery;
 
-    const message =
-      `*NEW ORDER: ${orderId}*%0A%0A` +
-      `*Customer Details:*%0A` +
-      `Name: ${formData.name}%0A` +
-      `Phone: ${formData.phone}%0A` +
-      `Area: ${formData.area}%0A` +
-      `Address: ${formData.address}%0A%0A` +
-      `*Order Summary:*%0A` +
-      `${itemsList}%0A%0A` +
-      `Subtotal: Rs. ${subtotal}%0A` +
-      `Delivery: Rs. ${delivery}%0A` +
-      `*Total: Rs. ${total}*%0A%0A` +
-      `Payment Method: Cash on Delivery (COD)`;
+    // Constructed Message
+    const textMessage = `*NEW ORDER: ${orderId}*
 
-    const whatsappUrl = `https://wa.me/923008269438?text=${message}`;
+*Customer Details:*
+Name: ${formData.name}
+Phone: ${formData.phone}
+Area: ${formData.area}
+Address: ${formData.address}
+
+*Order Summary:*
+${itemsList}
+
+Subtotal: Rs. ${subtotal}
+Delivery: Rs. ${delivery}
+*Total: Rs. ${total}*
+
+Payment Method: Cash on Delivery (COD)`;
+
+    // URL Encode Message
+    const encodedMessage = encodeURIComponent(textMessage);
+    const whatsappUrl = `https://wa.me/923008269438?text=${encodedMessage}`;
 
     window.open(whatsappUrl, "_blank");
 
@@ -109,12 +129,15 @@ export const CartSidebar = () => {
 
     setTimeout(() => {
       clearCart();
-    }, 5000); // Give them time to come back and see success message
+    }, 5000);
   };
 
   const handleClose = () => {
     closeCart();
-    setTimeout(() => setStep("cart"), 500);
+    setTimeout(() => {
+      setStep("cart");
+      setError("");
+    }, 500);
   };
 
   return (
@@ -268,6 +291,12 @@ export const CartSidebar = () => {
                 </div>
               </div>
 
+              {error && (
+                <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm font-medium border border-red-100 animate-pulse">
+                  {error}
+                </div>
+              )}
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Full Name
@@ -297,6 +326,9 @@ export const CartSidebar = () => {
                     setFormData({ ...formData, phone: e.target.value })
                   }
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  Format: 03XXXXXXXXX
+                </p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
