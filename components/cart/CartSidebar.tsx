@@ -275,7 +275,7 @@ export const CartSidebar = () => {
                 <input
                   type="text"
                   required
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none text-black"
                   placeholder="Enter your name"
                   value={formData.name}
                   onChange={(e) =>
@@ -290,7 +290,7 @@ export const CartSidebar = () => {
                 <input
                   type="tel"
                   required
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none text-black"
                   placeholder="0300 8269438"
                   value={formData.phone}
                   onChange={(e) =>
@@ -303,7 +303,7 @@ export const CartSidebar = () => {
                   Area
                 </label>
                 <select
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none bg-white"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none bg-white text-black"
                   value={formData.area}
                   onChange={(e) =>
                     setFormData({ ...formData, area: e.target.value })
@@ -324,7 +324,7 @@ export const CartSidebar = () => {
                 </label>
                 <textarea
                   required
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none text-black"
                   placeholder="House #, Street, Block..."
                   rows={3}
                   value={formData.address}
