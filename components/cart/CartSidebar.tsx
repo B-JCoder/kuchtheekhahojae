@@ -87,35 +87,82 @@ export const CartSidebar = () => {
     });
   };
 
-  const confirmOrder = () => {
-    const msg = `
-*NEW ORDER: ${previewOrder.orderId}*
+  const confirmOrder = async () => {
+    if (!previewOrder) return;
 
-*Customer Details*
-Name: ${previewOrder.name}
-Phone: ${previewOrder.phone}
-Area: ${previewOrder.area}
-Address: ${previewOrder.address}
+    try {
+      // 1️⃣ Send order to backend (LOG FIRST)
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: previewOrder.orderId,
+          name: previewOrder.name,
+          phone: previewOrder.phone,
+          area: previewOrder.area,
+          address: previewOrder.address,
+          items: previewOrder.items,
+          subtotal: cartTotal,
+          delivery: deliveryFee,
+          total: previewOrder.total,
+        }),
+      });
 
-*Order Summary*
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data?.error || "Failed to place order");
+      }
+
+      // 2️⃣ Construct WhatsApp message (AFTER successful API save)
+      const msg = `
+🧾 *NEW ORDER RECEIVED*
+━━━━━━━━━━━━━━━━━━
+🆔 *Order ID:* ${previewOrder.orderId}
+
+👤 *Customer Details*
+• Name: ${previewOrder.name}
+• Phone: ${previewOrder.phone}
+• Area: ${previewOrder.area}
+• Address: ${previewOrder.address}
+
+🛒 *Order Items*
 ${previewOrder.items
-  .map((i: any) => `• ${i.name} x ${i.quantity} (Rs. ${i.price * i.quantity})`)
+  .map(
+    (i: any, index: number) =>
+      `${index + 1}. ${i.name} × ${i.quantity} — Rs. ${i.price * i.quantity}`
+  )
   .join("\n")}
 
-Delivery: Rs. ${deliveryFee}
-*Total: Rs. ${previewOrder.total}*
+━━━━━━━━━━━━━━━━━━
+💵 *Bill Summary*
+• Subtotal: Rs. ${cartTotal}
+• Delivery Charges: Rs. ${deliveryFee}
+• *Total Payable: Rs. ${previewOrder.total}*
 
-Payment: Cash on Delivery
-    `;
+💰 *Payment Method*
+Cash on Delivery (COD)
 
-    window.open(
-      `https://wa.me/923008269438?text=${encodeURIComponent(msg)}`,
-      "_blank"
-    );
+📌 *Note:* Please confirm this order on WhatsApp.
+`.trim();
 
-    clearCart();
-    setPreviewOrder(null);
-    setStep("success");
+      // 3️⃣ Open WhatsApp
+      window.open(
+        `https://wa.me/923008269438?text=${encodeURIComponent(msg)}`,
+        "_blank"
+      );
+
+      // 4️⃣ Clear UI state safely
+      clearCart();
+      setPreviewOrder(null);
+      setStep("success");
+      setError("");
+    } catch (err: any) {
+      console.error("Order Error:", err);
+      setError(
+        err.message ||
+          "Something went wrong while placing your order. Please try again."
+      );
+    }
   };
 
   return (
@@ -296,7 +343,7 @@ Payment: Cash on Delivery
                         ? "Phone (03...)"
                         : f.charAt(0).toUpperCase() + f.slice(1)
                     }
-                    className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                    className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-black"
                     value={(form as any)[f]}
                     onChange={(e) => setForm({ ...form, [f]: e.target.value })}
                   />
@@ -304,7 +351,7 @@ Payment: Cash on Delivery
               ))}
 
               <select
-                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500 outline-none bg-white"
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500 outline-none bg-white text-black"
                 value={form.area}
                 onChange={(e) => setForm({ ...form, area: e.target.value })}
               >
@@ -317,15 +364,15 @@ Payment: Cash on Delivery
               </select>
 
               <div className="space-y-2 pt-4 border-t">
-                <div className="flex justify-between text-sm text-gray-600">
+                <div className="flex justify-between text-sm text-black">
                   <span>Subtotal:</span>
                   <span>Rs. {cartTotal}</span>
                 </div>
-                <div className="flex justify-between text-sm text-gray-600">
+                <div className="flex justify-between text-sm text-black">
                   <span>Delivery:</span>
                   <span>Rs. {deliveryFee}</span>
                 </div>
-                <div className="flex justify-between font-bold text-lg">
+                <div className="flex justify-between font-bold text-lg text-black">
                   <span>Total:</span>
                   <span>Rs. {total}</span>
                 </div>
@@ -339,9 +386,9 @@ Payment: Cash on Delivery
           <div className="p-4 border-t bg-white safe-area-pb">
             {step === "cart" ? (
               <>
-                <div className="flex justify-between font-bold text-lg text-brand-dark mb-4">
-                  <span>Total</span>
-                  <span>Rs. {cartTotal}</span>
+                <div className="flex justify-between font-bold text-lg text-brand-dark mb-4 text-black">
+                  <span className="text-black">Total</span>
+                  <span className="text-black">Rs. {cartTotal}</span>
                 </div>
                 <Button fullWidth size="lg" onClick={() => setStep("checkout")}>
                   Proceed to Checkout
