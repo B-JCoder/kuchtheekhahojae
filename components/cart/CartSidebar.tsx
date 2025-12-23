@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   X,
   Minus,
@@ -14,17 +14,9 @@ import {
 import { useCart } from "../../context/CartContext";
 import { Button } from "../ui/Button";
 import Image from "next/image";
-
-const AREAS = [
-  "N/A",
-  "Gulshan-e-Iqbal",
-  "DHA",
-  "Clifton",
-  "North Nazimabad",
-  "PECHS",
-  "Bahria Town",
-  "Johar",
-];
+import { DELIVERY_FEES } from "../../config/delivery";
+import { generateOrderId, isValidPakistaniPhone } from "../../utils/order";
+import { OrderPreviewModal } from "./OrderPreviewModal";
 
 export const CartSidebar = () => {
   const {
@@ -36,20 +28,31 @@ export const CartSidebar = () => {
     cartTotal,
     clearCart,
   } = useCart();
+
   const [step, setStep] = useState<"cart" | "checkout" | "success">("cart");
-  const [formData, setFormData] = useState({
+  const [error, setError] = useState("");
+  const [previewOrder, setPreviewOrder] = useState<any>(null);
+  const lastOrderTime = useRef<number>(0);
+
+  const [form, setForm] = useState({
     name: "",
     phone: "",
     area: "",
     address: "",
   });
-  const [error, setError] = useState("");
+
+  const deliveryFee = DELIVERY_FEES[form.area] ?? 0;
+  const total = cartTotal + deliveryFee;
 
   if (!isCartOpen) return null;
 
-  const handleCheckout = () => {
-    setStep("checkout");
-    setError("");
+  const handleClose = () => {
+    closeCart();
+    setTimeout(() => {
+      setStep("cart");
+      setError("");
+      setForm({ name: "", phone: "", area: "", address: "" });
+    }, 500);
   };
 
   const handleBackToCart = () => {
@@ -57,91 +60,72 @@ export const CartSidebar = () => {
     setError("");
   };
 
-  const generateOrderId = () => {
-    const date = new Date();
-    const dateStr = date.toISOString().slice(2, 10).replace(/-/g, "");
-    const random = Math.floor(Math.random() * 10000)
-      .toString()
-      .padStart(4, "0");
-    return `ORD-${dateStr}-${random}`;
+  const validate = () => {
+    if (!form.name || !form.phone || !form.area || !form.address)
+      return "All fields are required.";
+    if (!isValidPakistaniPhone(form.phone)) return "Invalid phone number.";
+    if (items.length === 0) return "Cart is empty.";
+    return "";
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+  const handlePreview = () => {
+    const err = validate();
+    if (err) return setError(err);
 
-    // Strict Validation
-    if (
-      !formData.name.trim() ||
-      !formData.phone.trim() ||
-      !formData.area ||
-      !formData.address.trim()
-    ) {
-      setError("Please fill in all details to place your order.");
-      return;
+    const now = Date.now();
+    if (now - lastOrderTime.current < 15000) {
+      return setError("Please wait before placing another order.");
     }
 
-    // Phone Validation (03XXXXXXXXX)
-    const phoneRegex = /^03\d{9}$/;
-    if (!phoneRegex.test(formData.phone.replace(/[-\s]/g, ""))) {
-      setError(
-        "Please enter a valid Pakistani phone number (e.g., 03001234567)."
-      );
-      return;
-    }
+    lastOrderTime.current = now;
 
-    const orderId = generateOrderId();
+    setPreviewOrder({
+      ...form,
+      items,
+      total,
+      orderId: generateOrderId(),
+    });
+  };
 
-    const itemsList = items
-      .map((i) => `• ${i.name} x ${i.quantity} (Rs. ${i.price * i.quantity})`)
-      .join("\n");
+  const confirmOrder = () => {
+    const msg = `
+*NEW ORDER: ${previewOrder.orderId}*
 
-    const subtotal = cartTotal;
-    const delivery = formData.area ? 150 : 0;
-    const total = subtotal + delivery;
+*Customer Details*
+Name: ${previewOrder.name}
+Phone: ${previewOrder.phone}
+Area: ${previewOrder.area}
+Address: ${previewOrder.address}
 
-    // Constructed Message
-    const textMessage = `*NEW ORDER: ${orderId}*
+*Order Summary*
+${previewOrder.items
+  .map((i: any) => `• ${i.name} x ${i.quantity} (Rs. ${i.price * i.quantity})`)
+  .join("\n")}
 
-*Customer Details:*
-Name: ${formData.name}
-Phone: ${formData.phone}
-Area: ${formData.area}
-Address: ${formData.address}
+Delivery: Rs. ${deliveryFee}
+*Total: Rs. ${previewOrder.total}*
 
-*Order Summary:*
-${itemsList}
+Payment: Cash on Delivery
+    `;
 
-Subtotal: Rs. ${subtotal}
-Delivery: Rs. ${delivery}
-*Total: Rs. ${total}*
+    window.open(
+      `https://wa.me/923008269438?text=${encodeURIComponent(msg)}`,
+      "_blank"
+    );
 
-Payment Method: Cash on Delivery (COD)`;
-
-    // URL Encode Message
-    const encodedMessage = encodeURIComponent(textMessage);
-    const whatsappUrl = `https://wa.me/923008269438?text=${encodedMessage}`;
-
-    window.open(whatsappUrl, "_blank");
-
-    console.log("Order Placed:", { orderId, items, total, customer: formData });
+    clearCart();
+    setPreviewOrder(null);
     setStep("success");
-
-    setTimeout(() => {
-      clearCart();
-    }, 5000);
-  };
-
-  const handleClose = () => {
-    closeCart();
-    setTimeout(() => {
-      setStep("cart");
-      setError("");
-    }, 500);
   };
 
   return (
     <>
+      <OrderPreviewModal
+        order={previewOrder}
+        onConfirm={confirmOrder}
+        onClose={() => setPreviewOrder(null)}
+      />
+
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/50 z-[60] backdrop-blur-sm transition-opacity"
@@ -150,6 +134,22 @@ Payment Method: Cash on Delivery (COD)`;
 
       {/* Sidebar */}
       <div className="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-2xl z-[70] flex flex-col transform transition-transform duration-300">
+        {/* Success Overlay */}
+        {step === "success" && (
+          <div className="absolute inset-0 bg-white z-[80] flex flex-col items-center justify-center p-6 text-center animate-in fade-in zoom-in duration-300">
+            <CheckCircle className="w-20 h-20 text-green-600 mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900">
+              Order Sent to WhatsApp
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Thank you! We’ll contact you shortly to confirm your order.
+            </p>
+            <Button onClick={handleClose} className="mt-8">
+              Continue Shopping
+            </Button>
+          </div>
+        )}
+
         {/* Header */}
         <div className="p-4 border-b flex items-center justify-between bg-brand-offwhite">
           <div className="flex items-center gap-2">
@@ -163,11 +163,7 @@ Payment Method: Cash on Delivery (COD)`;
             )}
             <ShoppingBag className="w-5 h-5 text-brand-red" />
             <h2 className="font-bold text-lg text-brand-dark">
-              {step === "cart"
-                ? "Your Cart"
-                : step === "checkout"
-                ? "Checkout"
-                : "Order Placed"}
+              {step === "cart" ? "Your Cart" : "Checkout"}
             </h2>
           </div>
           <button
@@ -192,7 +188,7 @@ Payment Method: Cash on Delivery (COD)`;
                       Your cart is empty
                     </h3>
                     <p className="text-gray-500 text-sm mt-1">
-                      Add some delicious Golgappas to get started!
+                      Add some menu items to get started!
                     </p>
                   </div>
                   <Button
@@ -271,11 +267,7 @@ Payment Method: Cash on Delivery (COD)`;
           )}
 
           {step === "checkout" && (
-            <form
-              id="checkout-form"
-              onSubmit={handleSubmit}
-              className="space-y-4"
-            >
+            <div className="space-y-4">
               <div className="bg-green-50 p-4 rounded-lg border border-green-100 mb-6">
                 <div className="flex items-start gap-3">
                   <MessageCircle className="w-6 h-6 text-green-600 mt-1" />
@@ -284,111 +276,60 @@ Payment Method: Cash on Delivery (COD)`;
                       Order via WhatsApp
                     </h3>
                     <p className="text-sm text-green-700 mt-1">
-                      Fill the form below and click "Order on WhatsApp". We will
-                      take your order directly!
+                      Fill the details to verify delivery charges.
                     </p>
                   </div>
                 </div>
               </div>
 
               {error && (
-                <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm font-medium border border-red-100 animate-pulse">
+                <div className="bg-red-100 text-red-600 p-3 rounded text-sm animate-pulse">
                   {error}
                 </div>
               )}
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none text-black"
-                  placeholder="Enter your name"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  required
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none text-black"
-                  placeholder="0300 8269438"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Format: 03XXXXXXXXX
-                </p>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Area
-                </label>
-                <select
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none bg-white text-black"
-                  value={formData.area}
-                  onChange={(e) =>
-                    setFormData({ ...formData, area: e.target.value })
-                  }
-                  required
-                >
-                  <option value="">Select Area</option>
-                  {AREAS.map((area) => (
-                    <option key={area} value={area}>
-                      {area}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Address
-                </label>
-                <textarea
-                  required
-                  className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none text-black"
-                  placeholder="House #, Street, Block..."
-                  rows={3}
-                  value={formData.address}
-                  onChange={(e) =>
-                    setFormData({ ...formData, address: e.target.value })
-                  }
-                />
-              </div>
+              {["name", "phone", "address"].map((f) => (
+                <div key={f}>
+                  <input
+                    placeholder={
+                      f === "phone"
+                        ? "Phone (03...)"
+                        : f.charAt(0).toUpperCase() + f.slice(1)
+                    }
+                    className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                    value={(form as any)[f]}
+                    onChange={(e) => setForm({ ...form, [f]: e.target.value })}
+                  />
+                </div>
+              ))}
 
-              <div className="bg-blue-50 p-3 rounded-lg text-sm text-blue-700">
-                <p>
-                  <strong>Payment Method:</strong> Cash on Delivery (COD)
-                </p>
-              </div>
-            </form>
-          )}
+              <select
+                className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500 outline-none bg-white"
+                value={form.area}
+                onChange={(e) => setForm({ ...form, area: e.target.value })}
+              >
+                <option value="">Select Area</option>
+                {Object.keys(DELIVERY_FEES).map((a) => (
+                  <option key={a} value={a}>
+                    {a} - Rs. {DELIVERY_FEES[a]}
+                  </option>
+                ))}
+              </select>
 
-          {step === "success" && (
-            <div className="h-full flex flex-col items-center justify-center text-center space-y-4 animate-in fade-in zoom-in duration-300">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-4">
-                <CheckCircle className="w-10 h-10" />
+              <div className="space-y-2 pt-4 border-t">
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>Subtotal:</span>
+                  <span>Rs. {cartTotal}</span>
+                </div>
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>Delivery:</span>
+                  <span>Rs. {deliveryFee}</span>
+                </div>
+                <div className="flex justify-between font-bold text-lg">
+                  <span>Total:</span>
+                  <span>Rs. {total}</span>
+                </div>
               </div>
-              <h2 className="text-2xl font-bold text-brand-dark">
-                Order Started on WhatsApp!
-              </h2>
-              <p className="text-gray-600">
-                Thanks, {formData.name}.<br />
-                Check your WhatsApp to complete the order.
-              </p>
-              <Button onClick={handleClose} className="mt-8">
-                Continue Shopping
-              </Button>
             </div>
           )}
         </div>
@@ -396,35 +337,25 @@ Payment Method: Cash on Delivery (COD)`;
         {/* Footer Actions */}
         {step !== "success" && items.length > 0 && (
           <div className="p-4 border-t bg-white safe-area-pb">
-            <div className="space-y-2 mb-4">
-              <div className="flex justify-between text-gray-600">
-                <span>Subtotal</span>
-                <span>Rs. {cartTotal}</span>
-              </div>
-              <div className="flex justify-between text-gray-600">
-                <span>Delivery</span>
-                <span>{formData.area ? "Rs. 150" : "Calculated next"}</span>
-              </div>
-              <div className="flex justify-between font-bold text-lg text-brand-dark pt-2 border-t border-dashed">
-                <span>Total</span>
-                <span>Rs. {cartTotal + (formData.area ? 150 : 0)}</span>
-              </div>
-            </div>
-
             {step === "cart" ? (
-              <Button fullWidth size="lg" onClick={handleCheckout}>
-                Proceed to Checkout
-              </Button>
+              <>
+                <div className="flex justify-between font-bold text-lg text-brand-dark mb-4">
+                  <span>Total</span>
+                  <span>Rs. {cartTotal}</span>
+                </div>
+                <Button fullWidth size="lg" onClick={() => setStep("checkout")}>
+                  Proceed to Checkout
+                </Button>
+              </>
             ) : (
               <Button
                 fullWidth
                 size="lg"
-                type="submit"
-                form="checkout-form"
-                className="bg-green-600 hover:bg-green-700"
+                className="bg-green-600 hover:bg-green-700 text-white"
+                onClick={handlePreview}
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
-                Order on WhatsApp
+                Preview Order
               </Button>
             )}
           </div>
