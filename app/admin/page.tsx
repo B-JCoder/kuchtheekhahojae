@@ -7,7 +7,7 @@ import ExportButton from "./components/ExportButton";
 export default async function AdminPage() {
   let orders = [];
   try {
-    const res = await fetch("http://localhost:3000/api/orders", {
+    const res = await fetch("https://kuchteekhahojaye.com/api/orders", {
       cache: "no-store",
     });
 
