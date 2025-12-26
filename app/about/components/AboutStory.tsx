@@ -1,8 +1,8 @@
 export default function AboutStory() {
   return (
     <section className="bg-white rounded-2xl shadow-sm p-8 md:p-12">
-      <h2 className="text-4xl font-extrabold mb-6 text-black text-center">
-        Our <span className="text-brand-red">Story</span>
+      <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-dark mb-6 tracking-tight text-center">
+        Our <span className="mt-20 text-brand-red">Story</span>
       </h2>
       <p className="text-gray-700 text-lg leading-relaxed mb-6 text-center">
         Kuch Theek Ho Jae was born to solve one problem — unhygienic street
