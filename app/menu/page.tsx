@@ -113,7 +113,7 @@ export default function MenuPage() {
         </section>
 
         {/* Delivery Info */}
-        <section className="border-t border-gray-200 pt-16">
+        {/* <section className="border-t border-gray-200 pt-16">
           <h2 className="text-2xl font-bold text-brand-dark mb-8 text-center">
             Delivery Information
           </h2>
@@ -142,7 +142,7 @@ export default function MenuPage() {
               </p>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );
