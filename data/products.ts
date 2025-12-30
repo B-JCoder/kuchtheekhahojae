@@ -28,7 +28,7 @@ export const products = [
     description:
       "Includes 50 Golgappay, Black & White Channa, Masala Potato, Sweet & Sour Chutneys, Mint Raita, Namkeen, Sweet & Tangy Water.",
     serves: 5,
-    image: "/images/img1.jpeg",
+    image: "/images/heroimage1.jpeg",
     isVeg: true,
     category: "combos",
   },
@@ -39,7 +39,7 @@ export const products = [
     description:
       "Includes 100 Golgappay, Black & White Channa, Masala Potato, Sweet & Sour Chutneys, Mint Raita, Namkeen, Sweet & Tangy Water.",
     serves: 10,
-    image: "/images/img2.jpeg",
+    image: "/images/heroimage4.jpeg",
     isVeg: true,
     category: "combos",
   },
