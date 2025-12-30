@@ -5,5 +5,5 @@ export const DELIVERY_FEES: Record<string, number> = {
   "North Nazimabad": 150,
   PECHS: 150,
   "Bahria Town": 250,
-  Johar: 150,
+  Johar: 350,
 };
