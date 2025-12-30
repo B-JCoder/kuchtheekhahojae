@@ -17,7 +17,7 @@ export const products = [
     description:
       "Includes 25 Golgappay, Black & White Channa, Sweet & Sour Chutneys, Sweet & Tangy Water.",
     serves: 2,
-    image: "/images/readytoeatkit.jpeg",
+    image: "/images/Readytoeatkit.jpeg",
     isVeg: true,
     category: "kits",
   },
