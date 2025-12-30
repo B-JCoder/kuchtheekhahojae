@@ -91,21 +91,6 @@ export default function MenuPage() {
           </div>
         </section>
 
-        {/* Frozen Packs */}
-        <section>
-          <div className="flex items-center gap-3 mb-8">
-            <div className="h-8 w-1 bg-blue-500 rounded-full"></div>
-            <h2 className="text-2xl md:text-3xl font-bold text-brand-dark">
-              Frozen / DIY Packs
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {frozen.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </section>
-
         {/* Catering Block */}
         <section className="bg-brand-dark text-white rounded-2xl p-8 md:p-16 text-center">
           <h2 className="text-3xl font-bold mb-4">
