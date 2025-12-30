@@ -1,8 +1,9 @@
 export default function AreaStats({ orders }: { orders: any[] }) {
   const areaMap: Record<string, number> = {};
   orders.forEach((o) => {
+    if (o.status !== "completed") return; // Only count completed orders
     if (!areaMap[o.area]) areaMap[o.area] = 0;
-    areaMap[o.area] += o.total;
+    areaMap[o.area] += Number(o.total) || 0;
   });
 
   return (

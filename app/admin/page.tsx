@@ -2,11 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 // Components
-import StatsCards from "./components/StatsCards";
-import OrdersTable from "./components/OrdersTable";
-import FiltersBar from "./components/FiltersBar";
-import AreaStats from "./components/AreaStats";
-import ExportButton from "./components/ExportButton";
+import AdminDashboard from "./components/AdminDashboard";
 
 export const dynamic = "force-dynamic";
 
@@ -15,14 +11,9 @@ export default async function AdminPage() {
 
   // 1. Check Auth
   const {
-    data: { session }, // Get session from auth state
+    data: { session },
     error: authError,
   } = await supabase.auth.getSession();
-
-  // If fetching session fails or no session, redirect.
-  // Note: getSession in server component might not validate token with server,
-  // currently getUser() is recommended for security but getSession is faster.
-  // Given we have middleware, this is a second check.
 
   if (!session || authError) {
     redirect("/login");
@@ -43,19 +34,12 @@ export default async function AdminPage() {
   }
 
   return (
-    <div className="p-8 space-y-8 bg-brand-offwhite min-h-screen">
+    <div className="p-8 space-y-8 bg-white min-h-screen">
       <div className="flex flex-col md:flex-row justify-between mt-40 items-center gap-4">
         <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-        <FiltersBar orders={orders} />
-        <ExportButton orders={orders} />
-      </div>
-
-      <StatsCards orders={orders} />
-      <AreaStats orders={orders} />
-      <OrdersTable orders={orders} />
+      <AdminDashboard initialOrders={orders} />
     </div>
   );
 }

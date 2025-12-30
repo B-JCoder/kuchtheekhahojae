@@ -26,25 +26,26 @@ const getStatusColor = (status: string) => {
   }
 };
 
-export default function OrderCard({ order }: { order: any }) {
+export default function OrderCard({
+  order,
+  onStatusUpdate,
+}: {
+  order: any;
+  onStatusUpdate: (id: string, status: string) => Promise<void>;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState(order.status);
 
-  const updateStatus = async (newStatus: string) => {
+  // Use order.status directly since it is controlled by parent now
+  const status = order.status;
+
+  const handleStatusChange = async (newStatus: string) => {
     if (!confirm(`Change status to ${newStatus}?`)) return;
     setLoading(true);
     try {
-      const { error } = await supabase
-        .from("orders")
-        .update({ status: newStatus })
-        .eq("id", order.id);
-
-      if (error) throw error;
-      setStatus(newStatus);
+      await onStatusUpdate(order.id, newStatus);
     } catch (err: any) {
       alert("Failed to update status: " + err.message);
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -177,28 +178,28 @@ export default function OrderCard({ order }: { order: any }) {
           <div className="mt-8 flex flex-wrap gap-3 justify-end border-t pt-4">
             <button
               disabled={loading || status === "pending"}
-              onClick={() => updateStatus("pending")}
+              onClick={() => handleStatusChange("pending")}
               className="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50"
             >
               Mark Pending
             </button>
             <button
               disabled={loading || status === "processing"}
-              onClick={() => updateStatus("processing")}
+              onClick={() => handleStatusChange("processing")}
               className="px-4 py-2 text-sm font-medium rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-50 disabled:opacity-50"
             >
               Mark Processing
             </button>
             <button
               disabled={loading || status === "completed"}
-              onClick={() => updateStatus("completed")}
+              onClick={() => handleStatusChange("completed")}
               className="px-4 py-2 text-sm font-medium rounded-lg bg-green-600 text-white hover:bg-green-700 disabled:opacity-50"
             >
               Mark Completed
             </button>
             <button
               disabled={loading || status === "cancelled"}
-              onClick={() => updateStatus("cancelled")}
+              onClick={() => handleStatusChange("cancelled")}
               className="px-4 py-2 text-sm font-medium rounded-lg border border-red-200 text-red-600 hover:bg-red-50 disabled:opacity-50"
             >
               Cancel Order

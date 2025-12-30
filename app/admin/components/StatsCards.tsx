@@ -1,8 +1,14 @@
 export default function StatsCards({ orders }: { orders: any[] }) {
   const totalOrders = orders.length;
-  const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
+  // Calculate revenue only for COMPLETED orders
+  const totalRevenue = orders
+    .filter((o) => o.status === "completed")
+    .reduce((sum, o) => sum + (Number(o.total) || 0), 0);
+
   const pendingOrders = orders.filter((o) => o.status === "pending").length;
-  const codOrders = orders.filter((o) => o.paymentMethod === "COD").length;
+  const codOrders = orders.filter(
+    (o) => o.paymentMethod === "COD" || !o.paymentMethod
+  ).length; // Assume COD if missing
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-black">
