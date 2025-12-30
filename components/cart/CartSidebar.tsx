@@ -96,14 +96,14 @@ export const CartSidebar = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          orderId: previewOrder.orderId,
+          order_id: previewOrder.orderId,
           name: previewOrder.name,
           phone: previewOrder.phone,
           area: previewOrder.area,
           address: previewOrder.address,
           items: previewOrder.items,
           subtotal: cartTotal,
-          delivery: deliveryFee,
+          delivery_fee: deliveryFee,
           total: previewOrder.total,
         }),
       });

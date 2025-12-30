@@ -1,46 +1,46 @@
 export const products = [
   {
     id: "1",
-    name: "Carry Kit (Frozen/DIY)",
+    name: "Carry Kit",
     price: 500,
     description:
-      "Store for Later. Includes 50 Golgappay (Crispy Puris), Ready to Eat Masala, Tangy Imli Pulp, Black & White Channa.",
-    serves: 4,
-    image: "/images/carrykit.jpeg", // Using local image
-    isVeg: false,
-    category: "frozen",
+      "Includes 50 Golgappay, Ready to Eat Masala, Tangy Imli Pulp, Black & White Channa.",
+    serves: 3,
+    image: "/images/carrykit.jpeg",
+    isVeg: true,
+    category: "kits",
   },
   {
     id: "2",
-    name: "Regular Kit (Single/Couple)",
+    name: "Regular Kit",
     price: 500,
     description:
-      "Ready-to-Eat! Includes 25 Golgappay, Channay, Sweet & Sour Chutneys, Khatta Meetha Pani.",
+      "Includes 25 Golgappay, Black & White Channa, Sweet & Sour Chutneys, Sweet & Tangy Water.",
     serves: 2,
-    image: "/images/Readytoeatkit.jpeg", // Using local image
-    isVeg: false,
+    image: "/images/readytoeatkit.jpeg",
+    isVeg: true,
     category: "kits",
   },
   {
     id: "3",
-    name: "Family Combo (Best Seller)",
+    name: "Family Combo",
     price: 1000,
     description:
-      "The main attraction! Includes 50 Golgappay, Masala Potato & Channay, Sweet & Sour Chutneys, Mint Raita & Namkeen, Sweet & Tangy Water.",
+      "Includes 50 Golgappay, Black & White Channa, Masala Potato, Sweet & Sour Chutneys, Mint Raita, Namkeen, Sweet & Tangy Water.",
     serves: 5,
-    image: "/images/img3.jpeg", // Using local image
-    isVeg: false,
+    image: "/images/img1.jpeg",
+    isVeg: true,
     category: "combos",
   },
   {
     id: "4",
-    name: "Party Combo (Big Value)",
+    name: "Party Combo",
     price: 2000,
     description:
-      "Big Value! Includes 100 Golgappay, Full Loaded Filling (Potato, Channa, Raita, Namkeen), Unlimited Style Pani & Chutneys.",
+      "Includes 100 Golgappay, Black & White Channa, Masala Potato, Sweet & Sour Chutneys, Mint Raita, Namkeen, Sweet & Tangy Water.",
     serves: 10,
-    image: "/images/img4.jpeg", // Using local image
-    isVeg: false,
+    image: "/images/img2.jpeg",
+    isVeg: true,
     category: "combos",
   },
 ];
