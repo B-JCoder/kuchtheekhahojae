@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/Button";
 import { Mail, MapPin, Phone } from "lucide-react";
 import FAQSection from "@/components/sections/FAQSection";
 import PageHero from "@/components/sections/Pageshero";
-
 export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

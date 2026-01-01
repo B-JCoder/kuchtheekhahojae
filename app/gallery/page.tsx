@@ -3,9 +3,9 @@ import { Metadata } from "next";
 import PageHero from "@/components/sections/Pageshero";
 
 export const metadata: Metadata = {
-  title: "Gallery | Kuch Theek Ho Jae",
+  title: "Gallery | Hygienic Golgappe & Pani Puri Karachi",
   description:
-    "See the crunch in action! Watch videos of our hygienic Golgappa preparation and happy customer reviews.",
+    "View our hygienic golgappe, mineral water pani puri & live stalls in Karachi. Premium packaging & authentic taste.",
 };
 
 export default function GalleryPage() {

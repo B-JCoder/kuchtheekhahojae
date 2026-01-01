@@ -23,20 +23,20 @@ export default function FAQSection() {
 
         <div className="space-y-4">
           <Question
-            q="Do you deliver all over Karachi?"
-            a="Yes, we deliver to most areas in Karachi including DHA, Clifton, Gulshan, North Nazimabad, PECHS, and more. Delivery charges may vary based on location."
+            q="Do you deliver pani puri all over Karachi?"
+            a="Yes, we deliver pani puri near you in DHA, Clifton, Gulshan, North Nazimabad, PECHS, and more."
           />
           <Question
-            q="Is the Pani mineral water based?"
-            a="Absolutely! We strictly use mineral water for both our Khatta and Meetha pani to ensure maximum hygiene and safety."
+            q="Is your pani made with mineral water?"
+            a="Yes! All our pani puri is prepared using RO purified mineral water for maximum safety."
           />
           <Question
-            q="How long do the Golgappas stay crispy?"
-            a="Our Golgappas are packed in airtight containers. If kept sealed, they stay crispy for up to 24 hours. For best taste, consume immediately!"
+            q="How long do Golgappas stay crispy?"
+            a="Our airtight packaging keeps Karachi Golgappe crispy for up to 24 hours if sealed."
           />
           <Question
-            q="Do you offer catering for weddings?"
-            a="Yes! We have special live stall setups for weddings, birthdays, and corporate events. Contact us on WhatsApp for a quote."
+            q="Do you offer catering?"
+            a="Yes! We provide hygienic golgappa live stalls for weddings, birthdays, and corporate events."
           />
         </div>
       </div>

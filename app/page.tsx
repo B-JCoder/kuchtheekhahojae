@@ -11,9 +11,9 @@ import FAQSection from "@/components/sections/FAQSection";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Home | Kuch Theek Ho Jae",
+  title: "Hygienic Golgappe & Pani Puri in Karachi | Kuch Theek Ho Jae",
   description:
-    "Welcome to Kuch Theek Ho Jae - The best hygienic Golgappas in Karachi. Order our party kits now!",
+    "Order hygienic golgappe & mineral water pani puri in Karachi. Safe, fresh & authentic Karachi pani puri delivered near you by Kuch Theek Ho Jae.",
 };
 
 export default function Home() {

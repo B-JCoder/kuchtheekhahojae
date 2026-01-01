@@ -6,7 +6,7 @@ const testimonials = [
     name: "Sarah Ahmed",
     role: "Foodie",
     content:
-      "The most hygienic and crispy Golgappas I've ever had in Karachi! The packaging was perfect, and nothing spilled.",
+      "The most hygienic and crispy Golgappas I’ve ever had in Karachi. Best mineral water pani puri experience!",
     rating: 5,
     initial: "S",
     color: "bg-red-100 text-red-600",
@@ -16,7 +16,7 @@ const testimonials = [
     name: "Omer Khan",
     role: "Regular Customer",
     content:
-      "Ordered for a family gathering, and everyone loved it. The khatta pani is authentic and hits the spot!",
+      "Perfect pani puri for family gatherings. Authentic Karachi taste and super clean!",
     rating: 5,
     initial: "O",
     color: "bg-yellow-100 text-yellow-600",
@@ -25,8 +25,7 @@ const testimonials = [
     id: 3,
     name: "Ayesha Bilgrami",
     role: "Event Planner",
-    content:
-      "Professional service and amazing taste. Their live stall setup at my sister's wedding was the highlight of the event.",
+    content: "Their live hygienic golgappa stall at a wedding was outstanding.",
     rating: 5,
     initial: "A",
     color: "bg-green-100 text-green-600",

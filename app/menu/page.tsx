@@ -4,9 +4,9 @@ import { Metadata } from "next";
 import PageHero from "@/components/sections/Pageshero";
 
 export const metadata: Metadata = {
-  title: "Menu | Kuch Theek Ho Jae",
+  title: "Pani Puri Menu | Mineral Water Golgappe Karachi",
   description:
-    "Explore our menu of Ready-to-Eat Golgappa Kits, Party Combos, and Frozen Packs. Order online for delivery in Karachi.",
+    "Explore our hygienic pani puri menu in Karachi. Mineral water golgappe, family packs & party deals by Kuch Theek Ho Jae.",
 };
 
 export default function MenuPage() {

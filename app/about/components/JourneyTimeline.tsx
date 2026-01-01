@@ -14,8 +14,9 @@ export default function JourneyTimeline() {
               <div className="font-bold text-slate-900">The Idea</div>
             </div>
             <div className="text-slate-500">
-              It all started with a craving and a stomach ache. We decided to
-              fix the hygiene problem in the market.
+              It started with a craving for pani puri and a stomach ache. That
+              moment inspired us to fix Karachi’s hygiene problem in street
+              food.
             </div>
           </div>
         </div>
@@ -28,8 +29,8 @@ export default function JourneyTimeline() {
               <div className="font-bold text-slate-900">First Kitchen</div>
             </div>
             <div className="text-slate-500">
-              Opened our first cloud kitchen in Gulshan-e-Iqbal, serving 50+
-              orders daily within the first month.
+              We launched our first cloud kitchen in Gulshan-e-Iqbal, delivering
+              50+ hygienic golgappa orders daily within the first month.
             </div>
           </div>
         </div>
@@ -42,8 +43,8 @@ export default function JourneyTimeline() {
               <div className="font-bold text-slate-900">Expansion</div>
             </div>
             <div className="text-slate-500">
-              Expanding to events, weddings, and aiming to cover the entire city
-              of Karachi.
+              We now serve Karachi Golgappe, cater weddings, birthdays,
+              corporate events, and aim to cover all major areas of Karachi.
             </div>
           </div>
         </div>

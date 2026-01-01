@@ -1,14 +1,15 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Contact Us | Kuch Theek Ho Jae",
-    description: "Get in touch for orders, party bookings, or inquiries. Call or WhatsApp us for the best Golgappas in Karachi.",
+  title: "Contact Us | Pani Puri Near Me in Karachi",
+  description:
+    "Looking for hygienic pani puri near you in Karachi? Contact Kuch Theek Ho Jae for orders, catering & live golgappa stalls.",
 };
 
 export default function ContactLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return <>{children}</>;
+  return <>{children}</>;
 }
