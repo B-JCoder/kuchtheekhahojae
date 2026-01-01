@@ -58,7 +58,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6 }}
             >
               <span className="inline-block py-1 px-3 rounded-full bg-red-50 text-[#D32F2F] text-sm font-bold tracking-wide mb-4">
-                #1 Hygienic Golgappas in Karachi
+                Hygienic Golgappas in Karachi
               </span>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.1] text-brand-dark tracking-tight">
                 Ghar Bethay <br />
@@ -114,11 +114,15 @@ export default function HeroSection() {
             >
               <div className="flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-green-500" /> 100%
-                Hygienic
+                Hygienic Pani Puri
               </div>
               <div className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-green-500" /> Premium
-                Packing
+                <span className="w-2 h-2 rounded-full bg-green-500" /> Pani Puri
+                Premium Packing
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-green-500" /> Mineral
+                Water Pani Puri
               </div>
             </motion.div>
           </div>
