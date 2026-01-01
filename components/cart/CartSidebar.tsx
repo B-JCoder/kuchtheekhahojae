@@ -61,7 +61,7 @@ export const CartSidebar = () => {
   };
 
   const validate = () => {
-    if (!form.name || !form.phone || !form.area || !form.address)
+    if (!form.name || !form.phone || !form.address)
       return "All fields are required.";
     if (!isValidPakistaniPhone(form.phone)) return "Invalid phone number.";
     if (items.length === 0) return "Cart is empty.";
@@ -122,7 +122,7 @@ export const CartSidebar = () => {
 👤 *Customer Details*
 • Name: ${previewOrder.name}
 • Phone: ${previewOrder.phone}
-• Area: ${previewOrder.area}
+• Area: ${previewOrder.area || "Not Specified"}
 • Address: ${previewOrder.address}
 
 🛒 *Order Items*
@@ -350,7 +350,7 @@ Cash on Delivery (COD)
                 </div>
               ))}
 
-              <select
+              {/* <select
                 className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500 outline-none bg-white text-black"
                 value={form.area}
                 onChange={(e) => setForm({ ...form, area: e.target.value })}
@@ -361,7 +361,7 @@ Cash on Delivery (COD)
                     {a} - Rs. {DELIVERY_FEES[a]}
                   </option>
                 ))}
-              </select>
+              </select> */}
 
               <div className="space-y-2 pt-4 border-t">
                 <div className="flex justify-between text-sm text-black">

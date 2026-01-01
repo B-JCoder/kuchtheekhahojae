@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/private/",
     },
-    sitemap: "https://kuchteekhahojaye.com/sitemap.xml", // Replace with actual domain if known, or localhost for now
+    sitemap: "https://kuchteekhahojaye.com/sitemap.xml",
   };
 }
