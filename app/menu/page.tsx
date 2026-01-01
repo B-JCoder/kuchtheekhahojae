@@ -6,7 +6,7 @@ import PageHero from "@/components/sections/Pageshero";
 export const metadata: Metadata = {
   title: "Pani Puri Menu | Mineral Water Golgappe Karachi",
   description:
-    "Explore our hygienic pani puri menu in Karachi. Mineral water golgappe, family packs & party deals by Kuch Theek Ho Jae.",
+    "Explore our hygienic pani puri menu in Karachi. Mineral water golgappe, family packs & party deals by Kuch Teekha Hojaye.",
 };
 
 export default function MenuPage() {

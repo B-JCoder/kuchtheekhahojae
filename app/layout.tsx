@@ -19,50 +19,65 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kuchteekhahojaye.com"),
-
   title: {
-    default: "Hygienic Golgappe & Pani Puri in Karachi | kuchteekhahojaye",
-    template: "%s | kuchteekhahojaye",
+    default: "Kuch Teekha Hojaye | Graphic Golgappa Delivery",
+    template: "%s | Kuch Teekha Hojaye",
   },
-
   description:
-    "Order hygienic golgappe & mineral water pani puri in Karachi. Authentic Karachi pani puri delivered safely near you by kuchteekhahojaye.",
-
+    "Order hygienic Golgappa Party Kits online. Crispy puris, chatpata pani, and masala fillings delivered to your doorstep in Karachi.",
   keywords: [
-    "hygienic golgappe",
-    "pani puri karachi",
-    "karachi golgappe",
-    "mineral water pani puri",
-    "pani puri near me",
-    "kuchteekhahojaye",
-    "street food karachi",
-    "hygienic pani puri",
+    "Golgappa",
+    "Pani Puri",
+    "Karachi",
+    "Food Delivery",
+    "Party Kits",
+    "Snacks",
+    "Street Food",
+    "Hygenic",
   ],
-
   openGraph: {
     type: "website",
-    locale: "en_PK",
+    locale: "en_US",
     url: "https://kuchteekhahojaye.com",
-    siteName: "kuchteekhahojaye",
-    title: "Hygienic Golgappe & Pani Puri in Karachi | kuchteekhahojaye",
+    siteName: "Kuch Teekha Hojaye",
+    title: "Kuch Teekha Hojaye | Graphic Golgappa Delivery",
     description:
-      "kuchteekhahojaye offers hygienic golgappe & mineral water pani puri in Karachi with authentic street taste and safe delivery.",
+      "Order hygienic Golgappa Party Kits online. Crispy puris, chatpata pani, and masala fillings delivered to your doorstep in Karachi.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.jpg", // Ensure this image exists in public folder or remove if not available yet
         width: 1200,
         height: 630,
-        alt: "Hygienic Golgappe & Pani Puri in Karachi - kuchteekhahojaye",
+        alt: "Kuch Teekha Hojaye Banner",
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
-    title: "Hygienic Golgappe & Pani Puri in Karachi | kuchteekhahojaye",
+    title: "Kuch Teekha Hojaye | Graphic Golgappa Delivery",
     description:
-      "Order hygienic golgappe & mineral water pani puri in Karachi. Safe, fresh & authentic taste.",
+      "Order hygienic Golgappa Party Kits online. Crispy puris, chatpata pani, and masala fillings delivered to your doorstep in Karachi.",
+    // images: ['/twitter-image.jpg'],
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      {
+        url: "/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+    apple: [{ url: "/apple-touch-icon.png" }],
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({

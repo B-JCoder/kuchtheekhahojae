@@ -22,12 +22,12 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product Not Found | Kuch Theek Ho Jae",
+      title: "Product Not Found | Kuch Teekha Hojaye",
     };
   }
 
   return {
-    title: `${product.name} | Kuch Theek Ho Jae`,
+    title: `${product.name} | Kuch Teekha Hojaye`,
     description: product.description.substring(0, 160),
     openGraph: {
       title: product.name,

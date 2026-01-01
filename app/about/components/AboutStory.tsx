@@ -8,7 +8,7 @@ export default function AboutStory() {
         Hygienic Golgappe with Authentic Street Taste
       </h3>
       <p className="text-gray-700 text-lg leading-relaxed mb-6 text-center">
-        Kuch Theek Ho Jae was born from one simple problem faced by every food
+        Kuch Teekha Hojaye was born from one simple problem faced by every food
         lover in Karachi — unhygienic street food.
       </p>
       <p className="text-gray-700 text-lg leading-relaxed mb-6 text-center">
