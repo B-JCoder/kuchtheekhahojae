@@ -40,6 +40,12 @@ export const Header = () => {
                 {item}
               </Link>
             ))}
+            <Link
+              href="/ramadan-platter"
+              className="relative text-brand-red font-bold hover:text-red-700 flex items-center gap-1 animate-pulse"
+            >
+              Ramadan Special
+            </Link>
           </nav>
 
           {/* ACTIONS */}
@@ -109,6 +115,13 @@ export const Header = () => {
                     {item}
                   </Link>
                 ))}
+                <Link
+                  href="/ramadan-platter"
+                  onClick={() => setOpen(false)}
+                  className="text-brand-red font-bold animate-pulse"
+                >
+                  🌙 Ramadan Special
+                </Link>
 
                 {/* WhatsApp – MOBILE ONLY */}
                 <Link

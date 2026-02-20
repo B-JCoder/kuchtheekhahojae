@@ -43,4 +43,15 @@ export const products = [
     isVeg: true,
     category: "combos",
   },
+  {
+    id: "5",
+    name: "Ramadan Golgappe Platter",
+    price: 1999,
+    description:
+      "Special Ramadan Platter includes 50 Golgappay, black & white chana, masala potatoes, sweet & sour chutniyan, namkeen and tangy pani. Premium packing for Iftar.",
+    serves: 7,
+    image: "/ramadanplater/plater.jpeg",
+    isVeg: true,
+    category: "combos",
+  },
 ];

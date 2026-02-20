@@ -57,40 +57,6 @@ export default function GalleryPage() {
           ))}
         </div>
 
-        {/* Photo Gallery Grid */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-center text-brand-dark mb-12">
-            Fan Moments
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            <div className="aspect-square bg-gray-200 rounded-xl overflow-hidden relative group">
-              <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-bold bg-gray-100">
-                Photo 1
-              </div>
-            </div>
-            <div className="aspect-square bg-gray-200 rounded-xl overflow-hidden relative group md:col-span-2 md:row-span-2">
-              <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-bold bg-gray-100">
-                Featured Photo
-              </div>
-            </div>
-            <div className="aspect-square bg-gray-200 rounded-xl overflow-hidden relative group">
-              <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-bold bg-gray-100">
-                Photo 2
-              </div>
-            </div>
-            <div className="aspect-square bg-gray-200 rounded-xl overflow-hidden relative group">
-              <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-bold bg-gray-100">
-                Photo 3
-              </div>
-            </div>
-            <div className="aspect-square bg-gray-200 rounded-xl overflow-hidden relative group">
-              <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-bold bg-gray-100">
-                Photo 4
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Customer Stories */}
       </div>
     </div>
