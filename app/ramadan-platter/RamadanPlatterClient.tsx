@@ -38,7 +38,7 @@ const images = [
 
 export default function RamadanPlatterClient() {
   const platterProduct = products.find((p) => p.id === "5") || products[0];
-  const { addItem } = useCart();
+  const { addItem, openCheckout } = useCart();
   const [currentImage, setCurrentImage] = useState(0);
   const [timeLeft, setTimeLeft] = useState({
     hours: 12,
@@ -265,19 +265,25 @@ export default function RamadanPlatterClient() {
 
             {/* CTAs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-              <a href={whatsappLink} target="_blank" className="sm:col-span-2">
+              <div className="sm:col-span-2">
                 <motion.div
                   animate={{
                     scale: [1, 1.05, 1],
                     transition: { duration: 1.5, repeat: Infinity },
                   }}
                 >
-                  <Button className="w-full h-16 md:h-16 text-xl font-black bg-brand-red hover:bg-brand-red text-white border-none rounded-[1.5rem] shadow-2xl transition-all flex items-center justify-center gap-3">
+                  <Button
+                    onClick={() => {
+                      addItem(platterProduct);
+                      openCheckout();
+                    }}
+                    className="w-full h-16 md:h-16 text-xl font-black bg-brand-red hover:bg-brand-red text-white border-none rounded-[1.5rem] shadow-2xl transition-all flex items-center justify-center gap-3"
+                  >
                     <MessageCircle className="w-7 h-7" />
                     ORDER NOW
                   </Button>
                 </motion.div>
-              </a>
+              </div>
               <Button
                 onClick={() => addItem(platterProduct)}
                 className="h-16 text-lg font-bold bg-brand-dark hover:bg-black text-white rounded-[1.2rem] flex items-center justify-center gap-2"
@@ -444,7 +450,12 @@ export default function RamadanPlatterClient() {
                 >
                   <ShoppingBag className="w-5 h-5" />
                 </button>
-                <a href={whatsappLink} target="_blank">
+                <div
+                  onClick={() => {
+                    addItem(platterProduct);
+                    openCheckout();
+                  }}
+                >
                   <motion.div
                     animate={{
                       scale: [1, 1.1, 1],
@@ -456,7 +467,7 @@ export default function RamadanPlatterClient() {
                       ORDER NOW
                     </Button>
                   </motion.div>
-                </a>
+                </div>
               </div>
             </div>
           </motion.div>

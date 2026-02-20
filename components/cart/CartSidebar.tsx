@@ -11,6 +11,7 @@ import {
   CheckCircle,
   MessageCircle,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../../context/CartContext";
 import { Button } from "../ui/Button";
 import Image from "next/image";
@@ -21,6 +22,7 @@ import { OrderPreviewModal } from "./OrderPreviewModal";
 export const CartSidebar = () => {
   const {
     isCartOpen,
+    isCheckoutMode,
     closeCart,
     items,
     updateQuantity,
@@ -30,8 +32,18 @@ export const CartSidebar = () => {
   } = useCart();
 
   const [step, setStep] = useState<"cart" | "checkout" | "success">("cart");
+
+  // Sync step with context's checkout mode
+  React.useEffect(() => {
+    if (isCheckoutMode) {
+      setStep("checkout");
+    } else {
+      setStep("cart");
+    }
+  }, [isCheckoutMode]);
   const [error, setError] = useState("");
   const [previewOrder, setPreviewOrder] = useState<any>(null);
+  const [isConfirming, setIsConfirming] = useState(false);
   const lastOrderTime = useRef<number>(0);
 
   const [form, setForm] = useState({
@@ -91,6 +103,7 @@ export const CartSidebar = () => {
     if (!previewOrder) return;
 
     try {
+      setIsConfirming(true);
       // 1️⃣ Send order to backend (LOG FIRST)
       const res = await fetch("/api/orders", {
         method: "POST",
@@ -129,7 +142,7 @@ export const CartSidebar = () => {
 ${previewOrder.items
   .map(
     (i: any, index: number) =>
-      `${index + 1}. ${i.name} × ${i.quantity} — Rs. ${i.price * i.quantity}`
+      `${index + 1}. ${i.name} × ${i.quantity} — Rs. ${i.price * i.quantity}`,
   )
   .join("\n")}
 
@@ -148,7 +161,7 @@ Cash on Delivery (COD)
       // 3️⃣ Open WhatsApp
       window.open(
         `https://wa.me/923008269438?text=${encodeURIComponent(msg)}`,
-        "_blank"
+        "_blank",
       );
 
       // 4️⃣ Clear UI state safely
@@ -160,18 +173,25 @@ Cash on Delivery (COD)
       console.error("Order Error:", err);
       setError(
         err.message ||
-          "Something went wrong while placing your order. Please try again."
+          "Something went wrong while placing your order. Please try again.",
       );
+    } finally {
+      setIsConfirming(false);
     }
   };
 
   return (
     <>
-      <OrderPreviewModal
-        order={previewOrder}
-        onConfirm={confirmOrder}
-        onClose={() => setPreviewOrder(null)}
-      />
+      <AnimatePresence>
+        {previewOrder && (
+          <OrderPreviewModal
+            order={previewOrder}
+            onConfirm={confirmOrder}
+            onClose={() => setPreviewOrder(null)}
+            isLoading={isConfirming}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Backdrop */}
       <div
