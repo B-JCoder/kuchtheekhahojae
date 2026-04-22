@@ -15,6 +15,10 @@ export const Header = () => {
   return (
     <>
       <header className="absolute top-0 left-0 w-full z-50">
+        <div className="bg-brand-red text-white text-xs font-bold py-1.5 px-4 text-center w-full flex items-center justify-center gap-2 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            Delivery Timings: 12 PM to 10 PM
+        </div>
         <div className="container mx-auto px-4 h-20 lg:h-24 flex items-center justify-between">
           {/* LOGO (DOUBLE SIZE) */}
           <Link href="/" onClick={() => setOpen(false)}>

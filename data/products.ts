@@ -1,11 +1,11 @@
 export const products = [
   {
     id: "1",
-    name: "Carry Kit",
+    name: "Craving Kit",
     price: 500,
     description:
-      "Includes 50 Golgappay, Ready to Eat Masala, Tangy Imli Pulp, Black & White Channa.",
-    serves: 3,
+      "Includes 25 golguppy, Sweet & tangy water, Black & white channa.",
+    serves: 2,
     image: "/images/carrykit.jpeg",
     isVeg: true,
     category: "kits",
@@ -13,9 +13,9 @@ export const products = [
   {
     id: "2",
     name: "Regular Kit",
-    price: 500,
+    price: 550,
     description:
-      "Includes 25 Golgappay, Black & White Channa, Sweet & Sour Chutneys, Sweet & Tangy Water.",
+      "Includes 25 golguppy, Black & white channe, Sweet & sour chatnies, Sweet & tangy water.",
     serves: 2,
     image: "/images/Readytoeatkit.jpeg",
     isVeg: true,
@@ -26,7 +26,7 @@ export const products = [
     name: "Family Combo",
     price: 1000,
     description:
-      "Includes 50 Golgappay, Black & White Channa, Masala Potato, Sweet & Sour Chutneys, Mint Raita, Namkeen, Sweet & Tangy Water.",
+      "Includes 50 golguppy, Black & white channe, Masala potato, Sweet & sour chatnies, Mint Raita, Namkin, Sweet & tangy water.",
     serves: 5,
     image: "/images/heroimage1.jpeg",
     isVeg: true,
@@ -37,7 +37,7 @@ export const products = [
     name: "Party Combo",
     price: 2000,
     description:
-      "Includes 100 Golgappay, Black & White Channa, Masala Potato, Sweet & Sour Chutneys, Mint Raita, Namkeen, Sweet & Tangy Water.",
+      "Includes 100 golguppy, Black & white channe, Masala potato, Sweet & sour chatnies, Mint Raita, Namkin, Sweet & tangy water.",
     serves: 10,
     image: "/images/heroimage4.jpeg",
     isVeg: true,

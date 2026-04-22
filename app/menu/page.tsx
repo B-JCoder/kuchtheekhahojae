@@ -91,27 +91,6 @@ export default function MenuPage() {
           </div>
         </section>
 
-        {/* Catering Block */}
-        <section className="bg-brand-dark text-white rounded-2xl p-8 md:p-16 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Want a Live Golgappa Stall?
-          </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto mb-8">
-            Make your wedding, birthday, or corporate event unforgettable with
-            our hygienic live stall. We bring the entire setup, servers, and
-            unlimited Golgappas!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://wa.me/923008269438"
-              target="_blank"
-              className="bg-brand-red hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
-            >
-              Get a Quote
-            </a>
-          </div>
-        </section>
-
         {/* Delivery Info */}
         {/* <section className="border-t border-gray-200 pt-16">
           <h2 className="text-2xl font-bold text-brand-dark mb-8 text-center">

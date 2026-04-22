@@ -383,7 +383,7 @@ Cash on Delivery (COD)
                 ))}
               </select> */}
 
-              <div className="space-y-2 pt-4 border-t">
+              <div className="space-y-2 pt-4 border-t mb-4">
                 <div className="flex justify-between text-sm text-black">
                   <span>Subtotal:</span>
                   <span>Rs. {cartTotal}</span>
@@ -396,6 +396,13 @@ Cash on Delivery (COD)
                   <span>Total:</span>
                   <span>Rs. {total}</span>
                 </div>
+              </div>
+              
+              <div className="bg-orange-50 border border-orange-100 rounded-xl p-3 text-center">
+                  <span className="text-brand-dark text-sm font-bold flex items-center justify-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
+                      Delivery Timings: 12 PM to 10 PM
+                  </span>
               </div>
             </div>
           )}

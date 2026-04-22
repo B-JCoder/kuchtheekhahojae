@@ -79,11 +79,19 @@ export const OrderPreviewModal = ({
         </div>
 
         {/* Total Amount */}
-        <div className="border-t border-dashed pt-4 flex justify-between items-center mb-8">
+        <div className="border-t border-dashed pt-4 flex justify-between items-center mb-4">
           <span className="text-gray-500 font-bold">Total Amount</span>
           <span className="text-2xl font-black text-brand-red">
             Rs. {order.total}
           </span>
+        </div>
+
+        {/* Delivery Timings Notice */}
+        <div className="bg-orange-50 border border-orange-100 rounded-xl p-3 mb-8 text-center">
+            <span className="text-brand-dark text-sm font-bold flex items-center justify-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse" />
+                Delivery Timings: 12 PM to 10 PM
+            </span>
         </div>
 
         {/* Actions */}

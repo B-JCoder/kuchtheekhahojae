@@ -86,33 +86,6 @@ export default function Home() {
       <FAQSection />
 
       {/* CTA Section */}
-      <section className="py-32 relative overflow-hidden">
-        {/* Colorful Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#D32F2F] via-[#c62828] to-[#b71c1c] z-0" />
-
-        {/* Decorative Circles */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-yellow-400/20 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3" />
-
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-8 tracking-tight drop-shadow-sm">
-            Planning a Party?
-          </h2>
-          <p className="text-xl md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto font-medium leading-relaxed">
-            Get our special bulk rates for weddings, birthdays, and corporate
-            events. <br className="hidden md:block" />
-            We set up live stalls too!
-          </p>
-          <Link href="https://wa.me/923008269438" target="_blank">
-            <Button
-              size="lg"
-              className="bg-red text-[#D32F2F] hover:bg-gray-50 border-none px-12 py-7 text-lg rounded-full font-bold shadow-2xl hover:scale-105 transition-all"
-            >
-              Chat on WhatsApp
-            </Button>
-          </Link>
-        </div>
-      </section>
     </div>
   );
 }

@@ -62,12 +62,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                     <span className="text-xl font-bold text-[#D32F2F]">Rs.{product.price}</span>
                 </div>
 
-                {product.serves && (
-                    <p className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wide flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
-                        Serves {product.serves} People
-                    </p>
-                )}
+                <p className="text-xs font-bold text-brand-red mb-3 flex items-center gap-1 bg-red-50 w-fit px-2 py-1 rounded-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse" />
+                    Delivery: 12 PM to 10 PM
+                </p>
 
                 {product.description && (
                     <p className="text-sm text-gray-600 mb-6 line-clamp-2 leading-relaxed flex-grow">{product.description}</p>
